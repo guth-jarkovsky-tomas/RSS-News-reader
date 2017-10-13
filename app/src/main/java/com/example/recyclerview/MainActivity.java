@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,9 @@ public class MainActivity extends Activity {
 
         mAdapter = new MyAdapter(createDataset());
         mRecyclerView.setAdapter(mAdapter);
+
+        Toast.makeText(this,"Ahoj brambory!",Toast.LENGTH_LONG).show();
+        Log.d("Main","Brambora double team");
     }
 
         private ArrayList<FeedItem> createDataset() {
