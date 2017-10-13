@@ -1,10 +1,11 @@
 package com.example.recyclerview;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     private RecyclerView mRecyclerView;
@@ -25,9 +26,9 @@ public class MainActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        String[] myDataset = new String[25];
-        for (int ko = 0;ko < 25; ko++) {
-            myDataset[ko] = "Card number " + (ko+1);
+        ArrayList<FeedItem> myDataset = new ArrayList<>();
+        for (int i = 0;i < 25; i++) {
+            myDataset.add(new FeedItem("Title number " + i, "Description number " +i,"just url","URL number "+i ));
         }
         mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
