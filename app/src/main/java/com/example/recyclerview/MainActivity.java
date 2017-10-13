@@ -26,12 +26,24 @@ public class MainActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        ArrayList<FeedItem> myDataset = new ArrayList<>();
-        for (int i = 0;i < 25; i++) {
-            myDataset.add(new FeedItem("Title number " + i, "Description number " +i,"just url","URL number "+i ));
-        }
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new MyAdapter(createDataset());
         mRecyclerView.setAdapter(mAdapter);
     }
+
+        private ArrayList<FeedItem> createDataset() {
+            String url;
+            ArrayList<FeedItem> myDataset =new ArrayList<>();
+            for (int i = 0;i < 25; i++) {
+                switch (i % 3) {
+                    case 0: url = "http://i0.kym-cdn.com/photos/images/newsfeed/000/964/816/b7c.gif"; break;
+                    case 1: url = "https://myanimelist.cdn-dena.com/r/360x360/images/characters/2/197117.jpg?s=4c675aa804c3b25d082761f337cb4e9c"; break;
+                    case 2: url = "http://www.anime-planet.com/images/characters/potato-dono-13651.jpg"; break;
+                    default: url = "https://myanimelist.cdn-dena.com/images/characters/13/57196.jpg";
+                }
+                if (i < 10) { url = "https://myanimelist.cdn-dena.com/images/characters/13/57196.jpg"; }
+                myDataset.add(new FeedItem("Title number " + i, "Description number " +i,url,"URL number "+i ));
+            }
+            return myDataset;
+        }
 
 }
