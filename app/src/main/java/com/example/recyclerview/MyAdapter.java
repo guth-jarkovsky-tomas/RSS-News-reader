@@ -5,8 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
+import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 
 /**
  * Created by TOMAS on 9.10.2017.
@@ -33,10 +34,15 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
     public void onBindViewHolder(FeedItemViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.txtview_title.setText(mDataset.get(position).getTitle());
-        holder.txtview_desc.setText(mDataset.get(position).getDescription());
-        holder.txtview_url.setText(mDataset.get(position).getURL());
-        holder.img_view.setImageResource(R.mipmap.ic_launcher);
+        FeedItem feedItem = mDataset.get(position);
+        holder.txtview_title.setText(feedItem.getTitle());
+        holder.txtview_desc.setText(feedItem.getDescription());
+        holder.txtview_url.setText(feedItem.getURL());
+
+        String url = mDataset.get(position).getImgURL();
+        Glide.with(holder.img_view.getContext())
+                .load(url)
+                .into(holder.img_view);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
