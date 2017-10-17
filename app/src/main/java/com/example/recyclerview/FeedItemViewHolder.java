@@ -9,14 +9,14 @@ import android.widget.TextView;
  * Created by TOMAS on 13.10.2017.
  */
 
-public class FeedItemViewHolder extends RecyclerView.ViewHolder {
+class FeedItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
-    public TextView txtview_title;
-    public TextView txtview_desc;
-    public TextView txtview_url;
-    public ImageView img_view;
+    TextView txtview_title;
+    TextView txtview_desc;
+    TextView txtview_url;
+    ImageView img_view;
 
-    public FeedItemViewHolder(View v) {
+    FeedItemViewHolder(View v) {
         super(v);
         txtview_title = (TextView) v.findViewById(R.id.txt_title);
         txtview_desc = (TextView) v.findViewById(R.id.txt_description);

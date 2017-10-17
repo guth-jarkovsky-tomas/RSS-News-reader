@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * Created by TOMAS on 9.10.2017.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
+class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
     private ArrayList<FeedItem> mDataset;
-    public MyAdapter(ArrayList<FeedItem> myDataset) {
+    MyAdapter(ArrayList<FeedItem> myDataset) {
         mDataset = myDataset;
     }
 
@@ -38,7 +38,6 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         holder.txtview_title.setText(feedItem.getTitle());
         holder.txtview_desc.setText(feedItem.getDescription());
         holder.txtview_url.setText(feedItem.getURL());
-
         String url = mDataset.get(position).getImgURL();
         Glide.with(holder.img_view.getContext())
                 .load(url)
