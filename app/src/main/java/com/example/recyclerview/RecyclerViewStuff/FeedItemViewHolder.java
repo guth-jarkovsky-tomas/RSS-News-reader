@@ -1,9 +1,11 @@
-package com.example.recyclerview;
+package com.example.recyclerview.RecyclerViewStuff;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.recyclerview.R;
 
 /**
  * Created by TOMAS on 13.10.2017.

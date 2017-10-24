@@ -1,4 +1,4 @@
-package com.example.recyclerview;
+package com.example.recyclerview.Api;
 
 import android.content.Context;
 import android.util.Log;
@@ -23,27 +23,36 @@ public class RetrofitHelper {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    void retrofitFun(final Context context) {
+    String APIKEY = "6088427f16e14eb1923a64828952d8aa";
+    NewsJson allTheNews;
 
 
-        IPImporter imp = retrofit.create(IPImporter.class);
-        Call<IPJson> call = imp.ip_adress();
-        call.enqueue(new Callback<IPJson>() {
+    public void readArticles(final Context context) {
+        NewsImporter hlasatel = retrofit.create(NewsImporter.class);
+        Call<NewsJson> call = hlasatel.news_article("techcrunch",APIKEY);
+
+        call.enqueue(new Callback<NewsJson>() {
             @Override
-            public void onResponse(Call<IPJson> call, Response<IPJson> response) {
-                IPJson ipAdresses = response.body();
-                if (ipAdresses == null) {
+            public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
+                allTheNews = new NewsJson(response.body());
+                if (allTheNews== null) {
                     return;
                 }
-                Toast.makeText(context, ipAdresses.ip, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, allTheNews.source, Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<IPJson> call, Throwable t) {
+            public void onFailure(Call<NewsJson> call, Throwable t) {
                 Log.e(TAG, "response error", t);
                 Toast.makeText(context, "chyba bracho", Toast.LENGTH_LONG).show();
             }
         });
+
     }
 
+    public NewsJson getAllTheNews() {
+        return allTheNews;
+    }
 }
+
+

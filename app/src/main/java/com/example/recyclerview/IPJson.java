@@ -6,8 +6,7 @@ package com.example.recyclerview;
 
 public class IPJson {
 
-    String ip;
-
+    public String ip;
     public IPJson(String ip) {
         this.ip = ip;
     }

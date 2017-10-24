@@ -1,17 +1,17 @@
-package com.example.recyclerview;
+package com.example.recyclerview.RecyclerViewStuff;
 
 /**
  * Created by TOMAS on 13.10.2017.
  */
 
-class FeedItem {
+public class FeedItem {
 
     private String title;
     private String description;
     private String imgURL;
     private String URL;
 
-    FeedItem(String title, String description, String imgURL, String URL) {
+    public FeedItem(String title, String description, String imgURL, String URL) {
         this.title = title;
         this.description = description;
         this.imgURL = imgURL;
