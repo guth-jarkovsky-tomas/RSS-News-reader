@@ -1,5 +1,7 @@
 package com.example.recyclerview.RecyclerViewStuff;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +46,16 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         Glide.with(holder.img_view.getContext())
                 .load(url)
                 .into(holder.img_view);
+
+        holder.img_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ActivityDetail.class);
+               // intent.putExtra("index", myDataset.get(index));
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
