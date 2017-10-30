@@ -63,9 +63,7 @@
             android:layout_height="wrap_content"
             tools:text="TextView"
             android:textSize="10sp"
-            android:textColor="@color/colorDescription"
-            android:autoLink="web"
-            />
+            android:textColor="@color/colorDescription"/>
 
     </LinearLayout>
 
