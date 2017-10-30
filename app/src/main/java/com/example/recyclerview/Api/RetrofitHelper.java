@@ -4,8 +4,6 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.recyclerview.MainActivity.API_URL;
-
 /**
  * Created by TOMAS on 17.10.2017.
  */
@@ -13,40 +11,28 @@ import static com.example.recyclerview.MainActivity.API_URL;
 public class RetrofitHelper {
 
     private static RetrofitHelper instance = null;
-    private String APIKEY = "6088427f16e14eb1923a64828952d8aa";
-    private NewsJson allTheNews;
-    private NewsImporter hlasatel;
-    private Retrofit retrofit;
-
+    private static final String APIKEY = "6088427f16e14eb1923a64828952d8aa";
+    private NewsImporter importer;
+    private static final String API_URL = "https://newsapi.org/";
 
     private RetrofitHelper() {
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        hlasatel = retrofit.create(NewsImporter.class);
+        importer = retrofit.create(NewsImporter.class);
     }
 
     public static RetrofitHelper getInstance() {
         if (instance == null) {
-            return new  RetrofitHelper();
-        }
-        else
-        {
+            return new RetrofitHelper();
+        } else {
             return instance;
         }
     }
 
-    public NewsImporter getNewsImporter() {
-        return hlasatel;
-    }
-
     public Call<NewsJson> getNewsCall(String source) {
-        return hlasatel.news_article(source,APIKEY);
-    }
-
-    public NewsJson getAllTheNews() {
-        return allTheNews;
+        return importer.news_article(source, APIKEY);
     }
 }
 

@@ -25,7 +25,6 @@ public class MainActivity extends Activity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    public static final String API_URL = "https://newsapi.org/";
     private ArrayList<FeedItem> mArticleList = new ArrayList<>();
 
 
@@ -35,7 +34,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
-        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -45,7 +43,6 @@ public class MainActivity extends Activity {
         startNetworkRequest("the-next-web");
         startNetworkRequest("techcrunch");
         startNetworkRequest("al-jazeera-english");
-
     }
 
     private void startNetworkRequest(String articleSource) {
@@ -54,8 +51,6 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
                 NewsJson allTheNews = new NewsJson(response.body());
-                Toast.makeText(MainActivity.this, allTheNews.getSource(), Toast.LENGTH_LONG).show();
-
                 mArticleList.addAll(createDataset(allTheNews));
                 mAdapter.notifyDataSetChanged();
             }
@@ -68,7 +63,6 @@ public class MainActivity extends Activity {
         });
 
     }
-
     private ArrayList<FeedItem> createDataset(NewsJson json) {
 
         ArrayList<Article> articles = json.getArticles();
