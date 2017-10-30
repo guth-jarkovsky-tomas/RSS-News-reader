@@ -15,7 +15,6 @@ public class NewsJson {
     String sortby;
     ArrayList<Article> articles;
 
-
     public NewsJson(String status, String source, String sortby, ArrayList<Article> articles) {
         this.status = status;
         this.source = source;
