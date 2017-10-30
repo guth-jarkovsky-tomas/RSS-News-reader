@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.example.recyclerview.ActivityDetail;
 import com.example.recyclerview.R;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
     public void onBindViewHolder(FeedItemViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        FeedItem feedItem = mDataset.get(position);
+        final FeedItem feedItem = mDataset.get(position);
         holder.txtview_src.setText(feedItem.getSource());
         holder.txtview_title.setText(feedItem.getTitle());
         holder.txtview_desc.setText(feedItem.getDescription());
@@ -52,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
             public void onClick(View v) {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ActivityDetail.class);
-               // intent.putExtra("index", myDataset.get(index));
+                intent.putExtra("url",feedItem.getURL());
                 context.startActivity(intent);
             }
         });

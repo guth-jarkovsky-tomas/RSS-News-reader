@@ -26,6 +26,5 @@ class FeedItemViewHolder extends RecyclerView.ViewHolder {
         txtview_desc = (TextView) v.findViewById(R.id.txt_description);
         txtview_url = (TextView) v.findViewById(R.id.txt_url);
         img_view = (ImageView) v.findViewById(R.id.img);
-
     }
 }
