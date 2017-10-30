@@ -42,7 +42,9 @@ public class MainActivity extends Activity {
         mAdapter = new MyAdapter(mArticleList);
         mRecyclerView.setAdapter(mAdapter);
 
+        startNetworkRequest("the-next-web");
         startNetworkRequest("techcrunch");
+        startNetworkRequest("al-jazeera-english");
 
     }
 
@@ -63,7 +65,6 @@ public class MainActivity extends Activity {
                 Log.e(TAG, "response error", t);
                 Toast.makeText(MainActivity.this, "chyba bracho", Toast.LENGTH_LONG).show();
             }
-
         });
 
     }
@@ -76,9 +77,8 @@ public class MainActivity extends Activity {
 
         for (int i = 0; i < articles.size(); i++) {
             articleNow = articles.get(i);
-            myDataset.add(new FeedItem(articleNow.getTitle(),articleNow.getDescription(),articleNow.getUrlToImage(),articleNow.getTitle()));
+            myDataset.add(new FeedItem(json.getSource(),articleNow.getTitle(),articleNow.getDescription(),articleNow.getUrlToImage(),articleNow.getURL()));
         }
-
         return myDataset;
     }
 }

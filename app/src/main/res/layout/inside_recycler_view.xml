@@ -4,17 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@drawable/border"
     android:padding="2dp"
-
     >
 
     <ImageView
         android:id="@+id/img"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         tools:src="@color/colorTitle"
          />
@@ -26,6 +25,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
+        <TextView
+            android:id="@+id/txt_src"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            tools:text="TextView"
+            android:textSize="10sp"
+            android:textColor="@color/colorDescription"
+            />
 
         <TextView
             android:id="@+id/txt_title"
@@ -53,7 +63,8 @@
             android:layout_height="wrap_content"
             tools:text="TextView"
             android:textSize="10sp"
-            android:textColor="@color/colorDescription"/>
+            android:textColor="@color/colorDescription"
+            android:autoLink="web"/>
 
     </LinearLayout>
 

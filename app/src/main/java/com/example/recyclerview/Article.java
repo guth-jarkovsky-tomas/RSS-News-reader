@@ -5,12 +5,11 @@ package com.example.recyclerview;
  */
 
 public class Article {
-    String author;
+    String url;
     String title;
     String description;
-    String url;
     String urlToImage;
-    String published;
+
 
     public String getTitle() {
         return title;
@@ -20,11 +19,9 @@ public class Article {
         return description;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
     public String getUrlToImage() {
         return urlToImage;
     }
+
+    public String getURL() { return url; }
 }

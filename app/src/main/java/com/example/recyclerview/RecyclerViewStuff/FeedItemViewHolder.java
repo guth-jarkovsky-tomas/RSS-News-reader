@@ -13,6 +13,7 @@ import com.example.recyclerview.R;
 
 class FeedItemViewHolder extends RecyclerView.ViewHolder {
     // each data item is just a string in this case
+    TextView txtview_src;
     TextView txtview_title;
     TextView txtview_desc;
     TextView txtview_url;
@@ -20,6 +21,7 @@ class FeedItemViewHolder extends RecyclerView.ViewHolder {
 
     FeedItemViewHolder(View v) {
         super(v);
+        txtview_src = (TextView) v.findViewById(R.id.txt_src);
         txtview_title = (TextView) v.findViewById(R.id.txt_title);
         txtview_desc = (TextView) v.findViewById(R.id.txt_description);
         txtview_url = (TextView) v.findViewById(R.id.txt_url);
