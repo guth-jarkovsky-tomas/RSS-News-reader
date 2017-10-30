@@ -1,7 +1,5 @@
 package com.example.recyclerview.RecyclerViewStuff;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +22,9 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         mDataset = myDataset;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public FeedItemViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
-        // create a new view
+
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.inside_recycler_view, parent, false);
         FeedItemViewHolder vh = new FeedItemViewHolder(v);
@@ -36,8 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
     @Override
     public void onBindViewHolder(FeedItemViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
+
         final FeedItem feedItem = mDataset.get(position);
         holder.txtview_src.setText(feedItem.getSource());
         holder.txtview_title.setText(feedItem.getTitle());
@@ -51,10 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         holder.img_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, ActivityDetail.class);
-                intent.putExtra("url",feedItem.getURL());
-                context.startActivity(intent);
+                ActivityDetail.starter(feedItem.getURL(),v.getContext());
             }
         });
     }
