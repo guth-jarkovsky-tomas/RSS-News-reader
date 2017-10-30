@@ -44,7 +44,7 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
                 .load(url)
                 .into(holder.img_view);
 
-        holder.img_view.setOnClickListener(new View.OnClickListener() {
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ActivityDetail.starter(feedItem.getURL(),v.getContext());

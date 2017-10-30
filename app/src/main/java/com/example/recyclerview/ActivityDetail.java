@@ -3,6 +3,7 @@ package com.example.recyclerview;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 
@@ -15,6 +16,11 @@ public class ActivityDetail extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+
         Intent intent = getIntent();
         String url = (String) intent.getExtras().get(ARG_URL);
         WebView webView = (WebView) findViewById(R.id.web);
@@ -26,6 +32,7 @@ public class ActivityDetail extends AppCompatActivity  {
         intent.putExtra(ARG_URL,url);
         context.startActivity(intent);
     }
+
 
 
 
