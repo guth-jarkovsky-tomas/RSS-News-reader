@@ -5,10 +5,10 @@ package com.example.recyclerview.Api;
  */
 
 public class Article {
-    String url;
-    String title;
-    String description;
-    String urlToImage;
+    private String url;
+    private String title;
+    private String description;
+    private String urlToImage;
 
 
     public String getTitle() {
