@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.example.recyclerview.ActivityDetail;
 import com.example.recyclerview.R;
 
 import java.util.ArrayList;
@@ -21,10 +22,9 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         mDataset = myDataset;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public FeedItemViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
-        // create a new view
+
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.inside_recycler_view, parent, false);
         FeedItemViewHolder vh = new FeedItemViewHolder(v);
@@ -33,9 +33,8 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
     @Override
     public void onBindViewHolder(FeedItemViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        FeedItem feedItem = mDataset.get(position);
+
+        final FeedItem feedItem = mDataset.get(position);
         holder.txtview_src.setText(feedItem.getSource());
         holder.txtview_title.setText(feedItem.getTitle());
         holder.txtview_desc.setText(feedItem.getDescription());
@@ -44,6 +43,13 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
         Glide.with(holder.img_view.getContext())
                 .load(url)
                 .into(holder.img_view);
+
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityDetail.starter(feedItem.getURL(),v.getContext());
+            }
+        });
     }
 
     @Override

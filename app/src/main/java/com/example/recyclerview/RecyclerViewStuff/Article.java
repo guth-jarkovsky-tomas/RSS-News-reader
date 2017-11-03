@@ -1,4 +1,4 @@
-package com.example.recyclerview;
+package com.example.recyclerview.RecyclerViewStuff;
 
 /**
  * Created by TOMAS on 17.10.2017.

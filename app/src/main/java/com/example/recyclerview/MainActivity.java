@@ -1,7 +1,7 @@
 package com.example.recyclerview;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.recyclerview.Api.NewsJson;
 import com.example.recyclerview.Api.RetrofitHelper;
+import com.example.recyclerview.RecyclerViewStuff.Article;
 import com.example.recyclerview.RecyclerViewStuff.FeedItem;
 import com.example.recyclerview.RecyclerViewStuff.MyAdapter;
 
@@ -19,7 +20,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("News");
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         mLayoutManager = new LinearLayoutManager(this);
