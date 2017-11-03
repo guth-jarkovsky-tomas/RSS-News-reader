@@ -1,7 +1,5 @@
 package com.example.recyclerview.Api;
 
-import com.example.recyclerview.RecyclerViewStuff.Article;
-
 import java.util.ArrayList;
 
 /**

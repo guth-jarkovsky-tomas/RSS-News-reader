@@ -26,7 +26,7 @@ public class ActivityDetail extends AppCompatActivity  {
         }
         Intent intent = getIntent();
         url = (String) intent.getExtras().get(ARG_URL);
-        WebView webView = (WebView) findViewById(R.id.web);
+        WebView webView = findViewById(R.id.web);
         webView.loadUrl(url);
     }
 

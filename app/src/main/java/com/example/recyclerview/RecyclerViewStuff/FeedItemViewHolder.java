@@ -12,7 +12,7 @@ import com.example.recyclerview.R;
  */
 
 class FeedItemViewHolder extends RecyclerView.ViewHolder {
-    // each data item is just a string in this case
+
     TextView txtview_src;
     TextView txtview_title;
     TextView txtview_desc;
@@ -22,11 +22,11 @@ class FeedItemViewHolder extends RecyclerView.ViewHolder {
 
     FeedItemViewHolder(View v) {
         super(v);
-        txtview_src = (TextView) v.findViewById(R.id.txt_src);
-        txtview_title = (TextView) v.findViewById(R.id.txt_title);
-        txtview_desc = (TextView) v.findViewById(R.id.txt_description);
-        txtview_url = (TextView) v.findViewById(R.id.txt_url);
-        img_view = (ImageView) v.findViewById(R.id.img);
+        txtview_src = v.findViewById(R.id.txt_src);
+        txtview_title = v.findViewById(R.id.txt_title);
+        txtview_desc = v.findViewById(R.id.txt_description);
+        txtview_url = v.findViewById(R.id.txt_url);
+        img_view = v.findViewById(R.id.img);
         view = v;
     }
 }
