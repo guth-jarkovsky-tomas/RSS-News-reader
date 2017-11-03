@@ -10,17 +10,10 @@ import java.util.ArrayList;
 
 public class NewsJson {
 
-    String status;
-    String source;
-    String sortby;
-    ArrayList<Article> articles;
-
-    public NewsJson(String status, String source, String sortby, ArrayList<Article> articles) {
-        this.status = status;
-        this.source = source;
-        this.sortby = sortby;
-        this.articles = articles;
-    }
+    private String status;
+    private String source;
+    private String sortby;
+    private ArrayList<Article> articles;
 
     public NewsJson(NewsJson other) {
         this.status = other.getStatus();
