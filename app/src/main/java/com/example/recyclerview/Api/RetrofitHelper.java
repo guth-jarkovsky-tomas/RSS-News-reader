@@ -34,6 +34,9 @@ public class RetrofitHelper {
     public Call<NewsJson> getNewsCall(String source) {
         return importer.news_article(source, APIKEY);
     }
+    public Call<SourcesJson> getSourcesCall(String language) {
+        return importer.news_sources(language);
+    }
 }
 
 

@@ -12,4 +12,8 @@ public interface NewsImporter {
 
     @GET("/v1/articles")
     Call<NewsJson> news_article(@Query("source") String source, @Query("apikey") String API_key );
+
+    @GET("/v1/sources")
+    Call<SourcesJson> news_sources(@Query("language") String language);
+
 }

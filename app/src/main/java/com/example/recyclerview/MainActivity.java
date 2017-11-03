@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.example.recyclerview.Api.NewsJson;
 import com.example.recyclerview.Api.RetrofitHelper;
+import com.example.recyclerview.Api.Source;
+import com.example.recyclerview.Api.SourcesJson;
 import com.example.recyclerview.RecyclerViewStuff.Article;
 import com.example.recyclerview.RecyclerViewStuff.FeedItem;
 import com.example.recyclerview.RecyclerViewStuff.MyAdapter;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<FeedItem> mArticleList = new ArrayList<>();
+    private ArrayList<Source> mSourcesList = new ArrayList<>();
 
 
     @Override
@@ -42,25 +45,48 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(mArticleList);
         mRecyclerView.setAdapter(mAdapter);
 
-        startNetworkRequest("the-next-web");
-        startNetworkRequest("techcrunch");
-        startNetworkRequest("al-jazeera-english");
+        startNetworkRequest_sources("en");
+
     }
 
-    private void startNetworkRequest(String articleSource) {
+    private void startNetworkRequest_sources(String language) {
+        Call<SourcesJson> call = RetrofitHelper.getInstance().getSourcesCall(language);
+        call.enqueue(new Callback<SourcesJson>() {
+            @Override
+            public void onResponse(Call<SourcesJson> call, Response<SourcesJson> response) {
+                SourcesJson allTheSources = new SourcesJson(response.body());
+                mSourcesList = allTheSources.getSources();
+                mAdapter.notifyDataSetChanged();
+                for (Source source: mSourcesList) {
+                    startNetworkRequest_news(source.getName());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SourcesJson> call, Throwable t) {
+                Log.e(TAG, "response error", t);
+                Toast.makeText(MainActivity.this, "chyba bracho", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    private void startNetworkRequest_news(String articleSource) {
         Call<NewsJson> call = RetrofitHelper.getInstance().getNewsCall(articleSource);
         call.enqueue(new Callback<NewsJson>() {
             @Override
             public void onResponse(Call<NewsJson> call, Response<NewsJson> response) {
-                NewsJson allTheNews = new NewsJson(response.body());
-                mArticleList.addAll(createDataset(allTheNews));
-                mAdapter.notifyDataSetChanged();
+                if (response.body() != null) {
+                    NewsJson allTheNews = new NewsJson(response.body());
+                    mArticleList.addAll(createDataset(allTheNews));
+                    mAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onFailure(Call<NewsJson> call, Throwable t) {
                 Log.e(TAG, "response error", t);
-                Toast.makeText(MainActivity.this, "chyba bracho", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "chyba bracho2", Toast.LENGTH_LONG).show();
             }
         });
 
