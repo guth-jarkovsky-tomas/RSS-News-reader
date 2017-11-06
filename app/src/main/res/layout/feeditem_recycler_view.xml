@@ -65,10 +65,5 @@
             android:textSize="10sp"
             android:textColor="@color/colorDescription"/>
 
-
-
     </LinearLayout>
-
-
-
 </LinearLayout>

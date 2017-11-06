@@ -1,9 +1,13 @@
 package com.example.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.recyclerview.RecyclerViewStuff.SourceChoiceAdapter;
 import com.example.recyclerview.RecyclerViewStuff.SourceChoiceItem;
@@ -12,7 +16,7 @@ import java.util.ArrayList;
 
 public class SourceChooseActivity extends AppCompatActivity {
 
-    ArrayList<String> sources = new ArrayList<>();;
+    ArrayList<SourceChoiceItem> sources = new ArrayList<>();;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     SourceChoiceAdapter mAdapter;
@@ -21,6 +25,10 @@ public class SourceChooseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_source_choice);
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
         setTitle("From where");
 
         mRecyclerView = findViewById(R.id.sources_recycler_view);
@@ -28,9 +36,9 @@ public class SourceChooseActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        sources = getIntent().getStringArrayListExtra("sourcesList");
+        sources = convertToSourceChoiceItems(getIntent().getStringArrayListExtra("sourcesList"));
 
-        mAdapter = new SourceChoiceAdapter(convertToSourceChoiceItems(sources));
+        mAdapter = new SourceChoiceAdapter(sources);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -41,6 +49,36 @@ public class SourceChooseActivity extends AppCompatActivity {
         }
         return ret;
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_save_sources, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_save:
+                Intent saveIntent = new Intent(this,MainActivity.class);
+                saveIntent.putStringArrayListExtra("sourcesList",transformToOutputSources(sources));
+                startActivity(saveIntent);
+                return true;
+
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private ArrayList<String> transformToOutputSources(ArrayList<SourceChoiceItem> sources) { //THIS needs to work
+        ArrayList<String> ret = new ArrayList<>();
+
+        return ret;
+    }
+
+
+    //TODO switching switches should change the sources array
 
 
 }
