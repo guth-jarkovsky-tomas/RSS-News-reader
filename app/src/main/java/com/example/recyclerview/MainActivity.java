@@ -1,10 +1,13 @@
 package com.example.recyclerview;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.recyclerview.Api.Article;
@@ -13,13 +16,15 @@ import com.example.recyclerview.Api.RetrofitHelper;
 import com.example.recyclerview.Api.Source;
 import com.example.recyclerview.Api.SourcesJson;
 import com.example.recyclerview.RecyclerViewStuff.FeedItem;
-import com.example.recyclerview.RecyclerViewStuff.MyAdapter;
+import com.example.recyclerview.RecyclerViewStuff.FeedItemAdapter;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Source> mSourcesList = new ArrayList<>();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,16 +48,16 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new MyAdapter(mArticleList);
+        mAdapter = new FeedItemAdapter(mArticleList);
         mRecyclerView.setAdapter(mAdapter);
 
         startNetworkRequest_sources("en");
-
     }
 
-    private void startNetworkRequest_sources(String language) {
+    public void startNetworkRequest_sources(String language) {
         Call<SourcesJson> call = RetrofitHelper.getInstance().getSourcesCall(language);
         call.enqueue(new Callback<SourcesJson>() {
+
             @Override
             public void onResponse(Call<SourcesJson> call, Response<SourcesJson> response) {
                 SourcesJson allTheSources = new SourcesJson(response.body());
@@ -69,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void startNetworkRequest_news(String articleSource) {
         Call<NewsJson> call = RetrofitHelper.getInstance().getNewsCall(articleSource);
@@ -91,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     private ArrayList<FeedItem> createDataset(NewsJson json) {
 
         ArrayList<Article> articles = json.getArticles();
@@ -102,6 +108,32 @@ public class MainActivity extends AppCompatActivity {
             myDataset.add(new FeedItem(json.getSource(),articleNow.getTitle(),articleNow.getDescription(),articleNow.getUrlToImage(),articleNow.getURL()));
         }
         return myDataset;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_choice_res, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.menu_choose_sources:
+                Intent choiceIntent = new Intent(this,SourceChooseActivity.class);
+                choiceIntent.putStringArrayListExtra("sourcesList",convertSourcesList(mSourcesList));
+                startActivity(choiceIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    ArrayList<String> convertSourcesList(ArrayList<Source> sources) {
+        ArrayList<String> ret = new ArrayList<>();
+        for (Source source: sources) {
+            ret.add(source.getName());
+        }
+        return ret;
     }
 }
 

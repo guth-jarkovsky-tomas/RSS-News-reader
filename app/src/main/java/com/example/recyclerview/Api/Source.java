@@ -11,4 +11,8 @@ public class Source {
     public String getName() {
         return name;
     }
+
+    public Source(String string) {
+        name = string;
+    }
 }

@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * Created by TOMAS on 9.10.2017.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
+public class FeedItemAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
 
     private ArrayList<FeedItem> mDataset;
-    public MyAdapter(ArrayList<FeedItem> myDataset) {
+    public FeedItemAdapter(ArrayList<FeedItem> myDataset) {
         mDataset = myDataset;
     }
 
@@ -26,7 +26,7 @@ public class MyAdapter extends RecyclerView.Adapter<FeedItemViewHolder> {
     public FeedItemViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
 
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.inside_recycler_view, parent, false);
+                .inflate(R.layout.feeditem_recycler_view, parent, false);
         return new FeedItemViewHolder(v);
     }
 
