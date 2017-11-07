@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class SourceChoiceAdapter extends RecyclerView.Adapter<SourceChoiceItemViewHolder> {
 
     private ArrayList<SourceChoiceItem> mDataset;
+
     public SourceChoiceAdapter(ArrayList<SourceChoiceItem> myDataset) {
         mDataset = myDataset;
     }
@@ -35,6 +36,12 @@ public class SourceChoiceAdapter extends RecyclerView.Adapter<SourceChoiceItemVi
             final SourceChoiceItem sourceItem = mDataset.get(position);
             holder.txtview_name.setText(sourceItem.getName());
             holder.swch_allowed.setChecked(sourceItem.getAllowed());
+            holder.swch_allowed.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sourceItem.setAllowed(!sourceItem.getAllowed());
+                }
+            });
         }
     }
 

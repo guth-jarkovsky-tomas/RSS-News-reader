@@ -1,6 +1,7 @@
 package com.example.recyclerview;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<FeedItem> mArticleList = new ArrayList<>();
     private ArrayList<Source> mSourcesList = new ArrayList<>();
-
-
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle("News");
         mRecyclerView = findViewById(R.id.my_recycler_view);
+        prefs = getSharedPreferences("SourcesAllowance", MODE_PRIVATE);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -63,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
                 SourcesJson allTheSources = new SourcesJson(response.body());
                 mSourcesList = allTheSources.getSources();
                 mAdapter.notifyDataSetChanged();
+
                 for (Source source: mSourcesList) {
+                    if (prefs.getBoolean(source.getName(),true))
                     startNetworkRequest_news(source.getName());
                 }
             }
@@ -115,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_choice_res, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

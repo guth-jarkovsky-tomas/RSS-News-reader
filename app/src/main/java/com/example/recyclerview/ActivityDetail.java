@@ -19,6 +19,7 @@ public class ActivityDetail extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        setTitle("Detail");
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
@@ -32,13 +33,11 @@ public class ActivityDetail extends AppCompatActivity  {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_res, menu);
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -59,8 +58,4 @@ public class ActivityDetail extends AppCompatActivity  {
         intent.putExtra(ARG_URL,url);
         context.startActivity(intent);
     }
-
-
-
-
 }

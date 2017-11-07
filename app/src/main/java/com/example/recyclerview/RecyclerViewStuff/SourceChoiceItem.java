@@ -6,6 +6,9 @@ package com.example.recyclerview.RecyclerViewStuff;
 
 public class SourceChoiceItem {
 
+    private boolean allowed;
+    private String Name;
+
     public SourceChoiceItem(String name, boolean allowed) {
         Name = name;
         this.allowed = allowed;
@@ -19,11 +22,11 @@ public class SourceChoiceItem {
         Name = name;
     }
 
-    boolean getAllowed() {
+    public boolean getAllowed() {
         return allowed;
     }
 
-    private String Name;
-    private boolean allowed;
-
+    public void setAllowed(boolean allowed) {
+        this.allowed = allowed;
+    }
 }
