@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<FeedItem> mArticleList = new ArrayList<>();
     private ArrayList<Source> mSourcesList = new ArrayList<>();
     private SharedPreferencesHelper prefsHelper;
-    static final String language = "en";
+    static final String LANGUAGE = "en";
 
 
     @Override
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new FeedItemAdapter(mArticleList);
         mRecyclerView.setAdapter(mAdapter);
 
-        startNetworkRequest_sources(language);
+        startNetworkRequest_sources(LANGUAGE);
     }
 
     private void startNetworkRequest_sources(String language) {
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (requestCode == SourceChooseActivity.REQUEST_CODE_CHOOSE_SOURCE) {
             if(resultCode == Activity.RESULT_OK){
-                startNetworkRequest_sources(language);
+                startNetworkRequest_sources(LANGUAGE);
             }
         }
     }
