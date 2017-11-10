@@ -2,7 +2,6 @@ package com.example.recyclerview;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<FeedItem> mArticleList = new ArrayList<>();
     private ArrayList<Source> mSourcesList = new ArrayList<>();
-    private SharedPreferences prefs;
+    private SharedPreferencesHelper prefsHelper;
     static final String language = "en";
 
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setTitle(getString(R.string.main_activity_title));
         mRecyclerView = findViewById(R.id.my_recycler_view);
-        prefs = getSharedPreferences(getString(R.string.shared_preferences_filename_sources),MODE_PRIVATE);
+        prefsHelper = SharedPreferencesHelper.getInstance(MainActivity.this);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 mSourcesList = allTheSources.getSources();
                 mArticleList.clear();
                 for (Source source: mSourcesList) {
-                    if (prefs.getBoolean(source.getName(),true))
+                    if (prefsHelper.isChosen(source.getName()))
                     startNetworkRequest_news(source.getName());
                 }
             }

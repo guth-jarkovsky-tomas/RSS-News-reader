@@ -2,7 +2,6 @@ package com.example.recyclerview;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +22,7 @@ public class SourceChooseActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     SourceChoiceAdapter mAdapter;
-    SharedPreferences prefs;
-    SharedPreferences.Editor editor;
+    SharedPreferencesHelper prefsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +34,7 @@ public class SourceChooseActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        prefs = getSharedPreferences(getString(R.string.shared_preferences_filename_sources),MODE_PRIVATE);
+        prefsHelper = SharedPreferencesHelper.getInstance(SourceChooseActivity.this);
         mRecyclerView = findViewById(R.id.sources_recycler_view);
 
         mLayoutManager = new LinearLayoutManager(this);
@@ -50,7 +48,7 @@ public class SourceChooseActivity extends AppCompatActivity {
     ArrayList<SourceChoiceItem> convertToSourceChoiceItems(ArrayList<String> sources) {
         ArrayList<SourceChoiceItem> ret = new ArrayList<>();
         for (String source : sources) {
-            ret.add(new SourceChoiceItem(source, prefs.getBoolean(source,true)));
+            ret.add(new SourceChoiceItem(source, prefsHelper.isChosen(source)));
         }
         return ret;
     }
@@ -66,11 +64,11 @@ public class SourceChooseActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_save:
-                editor = prefs.edit();
+
                 for (SourceChoiceItem source: sources) {
-                    editor.putBoolean(source.getName(),source.getAllowed());
+                    prefsHelper.addBoolean(source.getName(),source.getAllowed());
                 }
-                editor.apply();
+
                 setResult(Activity.RESULT_OK);
                 finish();
                 return true;
