@@ -32,17 +32,17 @@ public class SourceChoiceAdapter extends RecyclerView.Adapter<SourceChoiceItemVi
     @Override
     public void onBindViewHolder(SourceChoiceItemViewHolder holder, int position) {
 
-        if (holder != null) {
-            final SourceChoiceItem sourceItem = mDataset.get(position);
-            holder.txtview_name.setText(sourceItem.getName());
-            holder.swch_allowed.setChecked(sourceItem.getAllowed());
-            holder.swch_allowed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    sourceItem.setAllowed(!sourceItem.getAllowed());
-                }
-            });
-        }
+        if(holder == null) {return;}
+        final SourceChoiceItem sourceItem = mDataset.get(position);
+        holder.txtview_name.setText(sourceItem.getName());
+        holder.swch_allowed.setChecked(sourceItem.getAllowed());
+        holder.swch_allowed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sourceItem.setAllowed(!sourceItem.getAllowed());
+            }
+        });
+
     }
 
     @Override
