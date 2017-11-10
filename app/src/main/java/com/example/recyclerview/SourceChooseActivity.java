@@ -18,11 +18,11 @@ import java.util.ArrayList;
 public class SourceChooseActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_CHOOSE_SOURCE = 99;
-    ArrayList<SourceChoiceItem> sources = new ArrayList<>();
-    RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
-    SourceChoiceAdapter mAdapter;
-    SharedPreferencesHelper prefsHelper;
+    private ArrayList<SourceChoiceItem> sources = new ArrayList<>();
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private SourceChoiceAdapter mAdapter;
+    private SharedPreferencesHelper prefsHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class SourceChooseActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    ArrayList<SourceChoiceItem> convertToSourceChoiceItems(ArrayList<String> sources) {
+    private ArrayList<SourceChoiceItem> convertToSourceChoiceItems(ArrayList<String> sources) {
         ArrayList<SourceChoiceItem> ret = new ArrayList<>();
         for (String source : sources) {
             ret.add(new SourceChoiceItem(source, prefsHelper.isChosen(source)));

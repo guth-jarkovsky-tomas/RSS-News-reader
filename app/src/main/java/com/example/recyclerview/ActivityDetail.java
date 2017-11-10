@@ -13,7 +13,7 @@ import android.webkit.WebView;
 public class ActivityDetail extends AppCompatActivity  {
 
     static final private String ARG_URL = "url";
-    String url;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

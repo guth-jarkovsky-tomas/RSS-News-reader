@@ -9,7 +9,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by TOMAS on 10.11.2017.
  */
 
-public class SharedPreferencesHelper {
+class SharedPreferencesHelper {
     private static SharedPreferencesHelper instance;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;

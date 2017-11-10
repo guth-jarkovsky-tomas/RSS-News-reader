@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         startNetworkRequest_sources(language);
     }
 
-    public void startNetworkRequest_sources(String language) {
+    private void startNetworkRequest_sources(String language) {
         Call<SourcesJson> call = RetrofitHelper.getInstance().getSourcesCall(language);
         call.enqueue(new Callback<SourcesJson>() {
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    ArrayList<String> convertSourcesList(ArrayList<Source> sources) {
+    private ArrayList<String> convertSourcesList(ArrayList<Source> sources) {
         ArrayList<String> ret = new ArrayList<>();
         for (Source source: sources) {
             ret.add(source.getName());
