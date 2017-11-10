@@ -63,18 +63,24 @@ public class SourceChooseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.menu_save:
 
+            case R.id.menu_save:
                 for (SourceChoiceItem source: sources) {
                     prefsHelper.addBoolean(source.getName(),source.getAllowed());
                 }
-
                 setResult(Activity.RESULT_OK);
                 finish();
                 return true;
 
             case android.R.id.home:
                 finish();
+                return true;
+
+            case R.id.menu_clear:
+                for (SourceChoiceItem source: sources) {
+                    source.setAllowed(false);
+                }
+                mAdapter.notifyDataSetChanged();
                 return true;
         }
         return super.onOptionsItemSelected(item);

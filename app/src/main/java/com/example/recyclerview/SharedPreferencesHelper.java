@@ -36,5 +36,4 @@ class SharedPreferencesHelper {
         editor.putBoolean(name,value);
         editor.apply();
     }
-
 }
