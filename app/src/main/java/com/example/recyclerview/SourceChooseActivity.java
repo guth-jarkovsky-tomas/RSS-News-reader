@@ -1,5 +1,6 @@
 package com.example.recyclerview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,13 +18,13 @@ import java.util.ArrayList;
 
 public class SourceChooseActivity extends AppCompatActivity {
 
+    public static final int REQUEST_CODE_CHOOSE_SOURCE = 99;
     ArrayList<SourceChoiceItem> sources = new ArrayList<>();
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     SourceChoiceAdapter mAdapter;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +36,13 @@ public class SourceChooseActivity extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
+        prefs = getSharedPreferences(getString(R.string.shared_preferences_filename_sources),MODE_PRIVATE);
         mRecyclerView = findViewById(R.id.sources_recycler_view);
-        prefs = getSharedPreferences("SourcesAllowance", MODE_PRIVATE);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        sources = convertToSourceChoiceItems(getIntent().getStringArrayListExtra("sourcesList"));
+        sources = convertToSourceChoiceItems(getIntent().getStringArrayListExtra(getString(R.string.EXTRA_sources_list_name)));
         mAdapter = new SourceChoiceAdapter(sources);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -49,7 +50,7 @@ public class SourceChooseActivity extends AppCompatActivity {
     ArrayList<SourceChoiceItem> convertToSourceChoiceItems(ArrayList<String> sources) {
         ArrayList<SourceChoiceItem> ret = new ArrayList<>();
         for (String source : sources) {
-            ret.add(new SourceChoiceItem(source, prefs.getBoolean(source, true)));
+            ret.add(new SourceChoiceItem(source, prefs.getBoolean(source,true)));
         }
         return ret;
     }
@@ -65,13 +66,13 @@ public class SourceChooseActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_save:
-                Intent saveIntent = new Intent(this,MainActivity.class);
                 editor = prefs.edit();
                 for (SourceChoiceItem source: sources) {
                     editor.putBoolean(source.getName(),source.getAllowed());
                 }
                 editor.apply();
-                startActivity(saveIntent);
+                setResult(Activity.RESULT_OK);
+                finish();
                 return true;
 
             case android.R.id.home:
@@ -79,5 +80,11 @@ public class SourceChooseActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    static public void starter(Activity activity, ArrayList<String> sources) {
+        Intent choiceIntent = new Intent(activity,SourceChooseActivity.class);
+        choiceIntent.putStringArrayListExtra(activity.getString(R.string.EXTRA_sources_list_name),sources);
+        activity.startActivityForResult(choiceIntent, REQUEST_CODE_CHOOSE_SOURCE);
     }
 }

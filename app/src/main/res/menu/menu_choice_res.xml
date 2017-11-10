@@ -5,6 +5,6 @@
     <item
         android:id="@+id/menu_choose_sources"
         app:showAsAction="ifRoom"
-        android:title="Pick Sources"
+        android:title="@string/pick_sources_button"
         />
 </menu>

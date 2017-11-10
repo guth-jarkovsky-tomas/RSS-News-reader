@@ -1,5 +1,6 @@
 package com.example.recyclerview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,9 +26,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-
-
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -36,15 +34,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<FeedItem> mArticleList = new ArrayList<>();
     private ArrayList<Source> mSourcesList = new ArrayList<>();
-    SharedPreferences prefs;
+    private SharedPreferences prefs;
+    static final String language = "en";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("News");
+        setTitle(getString(R.string.main_activity_title));
         mRecyclerView = findViewById(R.id.my_recycler_view);
-        prefs = getSharedPreferences("SourcesAllowance", MODE_PRIVATE);
+        prefs = getSharedPreferences(getString(R.string.shared_preferences_filename_sources),MODE_PRIVATE);
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new FeedItemAdapter(mArticleList);
         mRecyclerView.setAdapter(mAdapter);
 
-        startNetworkRequest_sources("en");
+        startNetworkRequest_sources(language);
     }
 
     public void startNetworkRequest_sources(String language) {
@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<SourcesJson> call, Response<SourcesJson> response) {
                 SourcesJson allTheSources = new SourcesJson(response.body());
                 mSourcesList = allTheSources.getSources();
-                mAdapter.notifyDataSetChanged();
-
+                mArticleList.clear();
                 for (Source source: mSourcesList) {
                     if (prefs.getBoolean(source.getName(),true))
                     startNetworkRequest_news(source.getName());
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<SourcesJson> call, Throwable t) {
                 Log.e(TAG, "response error", t);
-                Toast.makeText(MainActivity.this, "chyba bracho", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.toast_sources_not_loaded, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<NewsJson> call, Throwable t) {
                 Log.e(TAG, "response error", t);
-                Toast.makeText(MainActivity.this, "chyba bracho2", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, R.string.toast_news_not_loaded, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -124,12 +123,20 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menu_choose_sources:
-                Intent choiceIntent = new Intent(this,SourceChooseActivity.class);
-                choiceIntent.putStringArrayListExtra("sourcesList",convertSourcesList(mSourcesList));
-                startActivity(choiceIntent);
+                SourceChooseActivity.starter(MainActivity.this, convertSourcesList(mSourcesList));
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+
+        if (requestCode == SourceChooseActivity.REQUEST_CODE_CHOOSE_SOURCE) {
+            if(resultCode == Activity.RESULT_OK){
+                startNetworkRequest_sources(language);
+            }
+        }
     }
 
     ArrayList<String> convertSourcesList(ArrayList<Source> sources) {

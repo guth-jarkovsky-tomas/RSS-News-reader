@@ -19,7 +19,7 @@ public class ActivityDetail extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        setTitle("Detail");
+        setTitle(getString(R.string.detail_activity_title));
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
