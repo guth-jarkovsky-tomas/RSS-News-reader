@@ -13,7 +13,7 @@ public class RetrofitHelper {
     private static RetrofitHelper instance = null;
     private static final String APIKEY = "6088427f16e14eb1923a64828952d8aa";
     private NewsImporter importer;
-    private static final String API_URL = "https://newsapi.org/";
+    private static final String API_URL = "https://newsapi.org/v1/";
 
     private RetrofitHelper() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -33,6 +33,9 @@ public class RetrofitHelper {
 
     public Call<NewsJson> getNewsCall(String source) {
         return importer.news_article(source, APIKEY);
+    }
+    public Call<SourcesJson> getSourcesCall(String language) {
+        return importer.news_sources(language);
     }
 }
 

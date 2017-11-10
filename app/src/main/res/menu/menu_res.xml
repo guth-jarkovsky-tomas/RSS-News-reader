@@ -3,8 +3,7 @@
     <item
         android:id="@+id/menu_item_share"
         app:showAsAction="always"
-        android:title="Share"
+        android:title="@string/share_button"
         android:icon="@android:drawable/ic_menu_share"
          />
-
 </menu>

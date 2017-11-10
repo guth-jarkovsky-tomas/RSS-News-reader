@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">RecyclerView</string>
+    <string name="sources_title">Sources</string>
+    <string name="EXTRA_sources_list_name">sourcesList</string>
+    <string name="shared_preferences_filename_sources">SourcesAllowance</string>
+    <string name="detail_activity_title">Detail</string>
+    <string name="toast_news_not_loaded">News not loaded</string>
+    <string name="toast_sources_not_loaded">Sources not loaded</string>
+    <string name="main_activity_title">News</string>
+    <string name="save_button">Save</string>
+    <string name="share_button">Share</string>
+    <string name="pick_sources_button">Pick Sources</string>
+    <string name="clear_button">Clear</string>
 </resources>

@@ -10,6 +10,10 @@ import retrofit2.http.Query;
 
 public interface NewsImporter {
 
-    @GET("/v1/articles")
+    @GET("articles")
     Call<NewsJson> news_article(@Query("source") String source, @Query("apikey") String API_key );
+
+    @GET("sources")
+    Call<SourcesJson> news_sources(@Query("language") String language);
+
 }

@@ -13,33 +13,31 @@ import android.webkit.WebView;
 public class ActivityDetail extends AppCompatActivity  {
 
     static final private String ARG_URL = "url";
-    String url;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
+        setTitle(getString(R.string.detail_activity_title));
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
         Intent intent = getIntent();
         url = (String) intent.getExtras().get(ARG_URL);
-        WebView webView = (WebView) findViewById(R.id.web);
+        WebView webView = findViewById(R.id.web);
         webView.loadUrl(url);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_res, menu);
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
@@ -60,8 +58,4 @@ public class ActivityDetail extends AppCompatActivity  {
         intent.putExtra(ARG_URL,url);
         context.startActivity(intent);
     }
-
-
-
-
 }
